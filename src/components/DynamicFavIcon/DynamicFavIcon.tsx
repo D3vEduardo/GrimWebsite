@@ -20,7 +20,7 @@ export default function DynamicFavIcon() {
             if (!link) return;
             link.href = defaultFavicon.src;
 +           localStorage.removeItem("dynamicFaviconURL");
-        };
+        }
         if (apiData.kv.dynamic_favicon !== "disabled") {
             const avatarUrl = `https://cdn.discordapp.com/avatars/${userData?.id}/${userData?.avatar}.png?size=32`
             updateFavicon(avatarUrl);
@@ -29,7 +29,7 @@ export default function DynamicFavIcon() {
         return () => {
             if (dynamicFavIconURL) localStorage.removeItem("dynamicFaviconURL");
         } 
-    }, [userData?.avatar]);
+    }, [userData?.avatar, apiData?.kv.dynamic_favicon, userData]);
 
     return null;
 }

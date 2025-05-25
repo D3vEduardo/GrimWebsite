@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./GlassCard.module.css";
 
 type PropsType = {
@@ -15,7 +16,11 @@ export default function GlassCard({
         <figure
             className={styles.glass_card}
         >
-            <img
+            <Image
+            alt="Imagem do glass card"
+            width={300}
+            height={200}
+            unoptimized
             className={styles.glass_card_image}
             src={imageUrl}
             />
