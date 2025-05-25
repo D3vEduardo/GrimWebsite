@@ -2,7 +2,7 @@
 
 import { RealTimeUserDataContext } from "./context";
 import { discordUserId } from "@/app/constants";
-import { useLanyardWS, Types } from "use-lanyard";
+import { useLanyardWS } from "use-lanyard";
 import Loading from "@components/Loading/Loading";
 import { LanyardResponseType } from "@/types/lanyardTypes";
 

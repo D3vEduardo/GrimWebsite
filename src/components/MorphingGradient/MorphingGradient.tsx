@@ -52,13 +52,13 @@ const createBubbles = (count: number, width: number, height: number, colors: Col
   }));
 };
 
-const drawBackground = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, 'rgba(10, 0, 30, 1)');
-  gradient.addColorStop(1, 'rgba(30, 10, 60, 1)');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-};
+// const drawBackground = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+//   const gradient = ctx.createLinearGradient(0, 0, width, height);
+//   gradient.addColorStop(0, 'rgba(10, 0, 30, 1)');
+//   gradient.addColorStop(1, 'rgba(30, 10, 60, 1)');
+//   ctx.fillStyle = gradient;
+//   ctx.fillRect(0, 0, width, height);
+// };
 
 const updateAndDrawBubble = (ctx: CanvasRenderingContext2D, bubble: Bubble, time: number, width: number, height: number) => {
   bubble.x += bubble.xSpeed;
