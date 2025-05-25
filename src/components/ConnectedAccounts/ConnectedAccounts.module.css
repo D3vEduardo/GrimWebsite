@@ -1,0 +1,11 @@
+.connected_accounts {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+}
+
+.account {
+    cursor: pointer;
+}

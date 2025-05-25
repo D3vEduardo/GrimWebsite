@@ -1,0 +1,44 @@
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.texts_container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.texts_container h1 {
+  font-size: clamp(1.4rem, 4.4vw, 5.4rem);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.texts_container h2 {
+  font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: #DDCEE1;
+}
+
+@media (max-width: 768px) {
+  .texts_container h1 {
+    font-size: clamp(1.5rem, 4vw, 4rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    width: 80vw;
+  }
+
+  .texts_container h1 {
+    font-size: clamp(1.2rem, 3vw, 3rem);
+  }
+
+  .texts_container h2 {
+    font-size: clamp(0.65rem, 1.2vw, 1.2rem);
+  }
+}
