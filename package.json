@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lowdb": "^7.0.1",
     "motion": "^12.12.2",
     "next": "15.3.2",
     "node-json-db": "^2.3.1",

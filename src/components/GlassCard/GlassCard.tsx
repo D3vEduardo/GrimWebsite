@@ -19,7 +19,7 @@ export default function GlassCard({
             <Image
             alt="Imagem do glass card"
             width={300}
-            height={200}
+            height={300}
             unoptimized
             className={styles.glass_card_image}
             src={imageUrl}
