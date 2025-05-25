@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import MorphingGradient from "@components/MorphingGradient/MorphingGradient";
 import DynamicFavIcon from "@components/DynamicFavIcon/DynamicFavIcon";
