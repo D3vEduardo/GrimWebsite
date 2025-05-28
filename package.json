@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "firebase-admin": "^13.4.0",
-    "lowdb": "^7.0.1",
     "motion": "^12.12.2",
     "next": "15.3.2",
     "node-json-db": "^2.3.1",
