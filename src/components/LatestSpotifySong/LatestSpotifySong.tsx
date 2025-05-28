@@ -14,7 +14,7 @@ export default async function LatestSpotifySong() {
   try {
 
     const baseUrl = env.DEVELOPMENT
-      ? 'https://grim.vercel.app' 
+      ? 'https://grimwebsite.onrender.com' 
       : 'http://localhost:3000';
     
     const res = await fetch(`${baseUrl}/api/`, {
