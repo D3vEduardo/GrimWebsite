@@ -23,6 +23,7 @@ const envSchema = z.object({
   FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL: z.string(),
   FIREBASE_ADMIN_CLIENT_X509_CERT_URL: z.string(),
   FIREBASE_ADMIN_UNIVERSE_DOMAIN: z.string(),
+  DEVELOPMENT: z.string().optional(),
 });
 
 export const env = envSchema.parse(process.env);

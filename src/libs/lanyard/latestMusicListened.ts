@@ -1,5 +1,6 @@
 import { LanyardWebsocket } from "node-lanyard";
 import { discordUserId } from "@constants";
+import { setLatestListenedMusic } from "@libs/firebase/setLatestListenedMusic";
 
 
 export const initialized = new Map<string, boolean>();
@@ -11,8 +12,8 @@ export function latestMusicListened() {
 
     console.log("Conectando websocket...")
     ws.on("update", async data => {
-      if (data.listening_to_spotify) {
-        await db.update(() => data);
+      if (data.listening_to_spotify && data.spotify) {
+        await setLatestListenedMusic(data.spotify)
         console.log("Sucesso ao atualizar dados do spotify.")
       }
     });

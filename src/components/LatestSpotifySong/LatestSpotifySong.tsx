@@ -1,6 +1,7 @@
 'use server'
 
 import GlassCard from "@/components/GlassCard/GlassCard";
+import { env } from "@libs/zod/env";
 
 interface SpotifyData {
   song: string;
@@ -12,11 +13,11 @@ export default async function LatestSpotifySong() {
   
   try {
 
-    const baseUrl = process.env.NODE_ENV === 'production' 
+    const baseUrl = env.DEVELOPMENT
       ? 'https://grim.vercel.app' 
       : 'http://localhost:3000';
     
-    const res = await fetch(`${baseUrl}/api`, {
+    const res = await fetch(`${baseUrl}/api/`, {
 
       cache: 'no-store',
     });
