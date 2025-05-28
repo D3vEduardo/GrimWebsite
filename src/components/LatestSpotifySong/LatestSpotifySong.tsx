@@ -13,7 +13,7 @@ export default async function LatestSpotifySong() {
   
   try {
 
-    const baseUrl = env.DEVELOPMENT
+    const baseUrl = !env.DEVELOPMENT
       ? 'https://grimwebsite.onrender.com' 
       : 'http://localhost:3000';
     
