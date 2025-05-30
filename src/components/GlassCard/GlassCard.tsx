@@ -62,11 +62,11 @@ export default function GlassCard({
       <figcaption className={styles.glass_card_figcaption}>
         <span style={{ display: "flex", gap: 2 }}>
           <h3 className={styles.glass_card_title}>{title}</h3>
-          {
-            spotify?.trackId && (
-                <Icon icon="mingcute:spotify-fill" color="#1DB954" width={25} />
-            )
-          }
+          {spotify?.trackId ? (
+            <Icon icon="mingcute:spotify-fill" color="#1DB954" width={25} />
+          ) : (
+            <Icon icon="ic:baseline-discord" color="#7289da" width={25} />
+          )}
         </span>
         <p className={styles.glass_card_subtitle}>{subtitle}</p>
       </figcaption>
