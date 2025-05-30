@@ -1,7 +1,7 @@
 "use client";
 
 import { useRealTimeUserData } from "@contexts/RealTimeUserData/hook";
-import GlassCard from "../GlassCard/GlassCard";
+import GlassCard from "@components/GlassCard/GlassCard";
 
 interface CardsSectionProps {
   latestSpotifySongComponent: React.ReactNode;

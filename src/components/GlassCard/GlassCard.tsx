@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./GlassCard.module.css";
 import { motion } from "motion/react";
