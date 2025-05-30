@@ -5,17 +5,17 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:server": "tsc --project tsconfig.server.json"
   },
   "dependencies": {
+    "@mdx-js/react": "^3.1.0",
     "firebase-admin": "^13.4.0",
     "motion": "^12.12.2",
     "next": "15.3.2",
     "node-json-db": "^2.3.1",
-    "node-lanyard": "^0.0.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
     "use-lanyard": "^1.7.0",
     "zod": "^3.25.32"

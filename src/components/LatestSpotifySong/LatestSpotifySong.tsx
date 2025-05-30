@@ -2,24 +2,22 @@
 
 import GlassCard from "@/components/GlassCard/GlassCard";
 import { env } from "@libs/zod/env";
-
-interface SpotifyData {
-  song: string;
-  artist?: string;
-  album_art_url?: string;
-}
+import { Types } from "use-lanyard";
 
 export default async function LatestSpotifySong() {
   
   try {
 
-    const baseUrl = !env.DEVELOPMENT
+    const baseUrl = !env.DEV
       ? 'https://grimwebsite.onrender.com' 
       : 'http://localhost:3000';
     
     const res = await fetch(`${baseUrl}/api/`, {
 
       cache: 'no-store',
+      next: {
+        revalidate: 0,
+      }
     });
     
     if (!res.ok) {
@@ -34,11 +32,15 @@ export default async function LatestSpotifySong() {
       );
     }
 
-    const data: SpotifyData = await res.json();
+    const data: Types.Spotify = await res.json();
     return (
       <GlassCard
         title={data.song || "Unknown Track"}
         subtitle={data.artist || "Unknown Artist"}
+        spotify={{
+          trackId: data.track_id?.toString() || ""
+        }}
+        redirectUrl={`https://open.spotify.com/track/${data.track_id}`}
         imageUrl={
           data.album_art_url ||
           "https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"

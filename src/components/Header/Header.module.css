@@ -6,21 +6,23 @@
 }
 
 .texts_container {
-  max-width: 1200px;
-  width: 100%;
+  width: clamp(300, 100%, 1200px);
+  max-width: 100%;
 }
 
 .texts_container h1 {
-  font-size: clamp(1.4rem, 4.4vw, 5.4rem);
+  font-size: clamp(1.4rem, 4.4vw, 5.4rem) !important;
   font-weight: 900;
-  line-height: 1.2;
 }
 
 .texts_container h2 {
-  font-size: clamp(0.9rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.9rem, 1.5vw, 1.5rem) !important;
   font-weight: 300;
   line-height: 1.4;
   color: #DDCEE1;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {

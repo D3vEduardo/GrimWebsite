@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -19,14 +22,36 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@constants": ["./src/app/constants.ts"],
-      "@contexts/*": ["./src/contexts/*"],
-      "@type/*": ["./src/types/*"],
-      "@libs/*": ["./src/libs/*"],
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@constants": [
+        "./src/app/constants.ts"
+      ],
+      "@contexts/*": [
+        "./src/contexts/*"
+      ],
+      "@type/*": [
+        "./src/types/*"
+      ],
+      "@libs/*": [
+        "./src/libs/*"
+      ]
+    },
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "server.ts",
+    "server.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

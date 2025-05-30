@@ -16,6 +16,7 @@
     justify-content: center;
     flex-direction: column;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .glass_card_image {
@@ -28,7 +29,7 @@
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 100%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 0 rgba(54, 0, 69, 0.2);
     transition: height 0.3s ease;
 }
 
@@ -44,7 +45,7 @@
 
 .glass_card_title {
     font-size: clamp(0.9rem, 2vw, 1.2rem);
-    width: 100%;
+    /* width: 100%; */
     max-width: 30ch;
 }
 

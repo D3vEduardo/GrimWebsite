@@ -1,12 +1,15 @@
-'use client'
+"use client";
+import styles from "./Loading.module.css";
+
 export default function LoadingProvider() {
-    return (
-        <main
-            style={{
-                cursor: "progress"
-            }}
-        >
-            <h1>Loading...</h1>
-        </main>
-    )
+  return (
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <div className={`${styles.dash} ${styles.one}`}></div>
+        <div className={`${styles.dash} ${styles.two}`}></div>
+        <div className={`${styles.dash} ${styles.three}`}></div>
+        <div className={`${styles.dash} ${styles.four}`}></div>
+      </div>
+    </main>
+  );
 }
