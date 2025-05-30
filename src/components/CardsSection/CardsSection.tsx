@@ -36,7 +36,7 @@ export default function CardsSection({
         }`}
         title={"@" + userData.discord_user.username || "User"}
         subtitle={userActivity?.state || userData.kv.activity_state}
-        delay={1}
+        delay={1.6}
         redirectUrl={`https://discord.com/users/${userData.discord_user.id}`}
       />
       {spotifyData ? (
