@@ -40,6 +40,7 @@ export default async function LatestSpotifySong() {
         spotify={{
           trackId: data.track_id?.toString() || ""
         }}
+        delay={1.8}
         redirectUrl={`https://open.spotify.com/track/${data.track_id}`}
         imageUrl={
           data.album_art_url ||
