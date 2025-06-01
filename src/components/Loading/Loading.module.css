@@ -1,17 +1,12 @@
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100svh;
-  text-align: center;
-}
-
 .container {
   scale: 0.8;
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   align-items: center;
+  transform: translate(-50%, -50%);
 }
 
 .dash {

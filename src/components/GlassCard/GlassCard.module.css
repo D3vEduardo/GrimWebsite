@@ -1,101 +1,106 @@
 .glass_card {
-    background-color: rgba(230, 148, 255, 0.06);
-    border: solid 1px rgba(230, 148, 255, 0.1);
-    padding: 20px 15px 20px 20px;
-    border-radius: 22px;
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    width: 100%;
-    min-width: 73px;
-    max-width: 500px;
-    min-height: 75px;
-    height: auto;
-    position: relative;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    flex-direction: column;
-    box-sizing: border-box;
-    text-decoration: none;
+  background-color: rgba(230, 148, 255, 0.06);
+  border: solid 1px rgba(230, 148, 255, 0.1);
+  padding: 20px 15px 20px 20px;
+  border-radius: 22px;
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  width: 100%;
+  min-width: 73px;
+  max-width: 500px;
+  min-height: 75px;
+  height: auto;
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 .glass_card_image {
-    position: absolute;
-    left: -5%;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 88px;
-    width: auto;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 100%;
-    box-shadow: 0 0 10px 0 rgba(54, 0, 69, 0.2);
-    transition: height 0.3s ease;
+  position: absolute;
+  left: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 88px;
+  width: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 100%;
+  box-shadow: 0 0 10px 0 rgba(54, 0, 69, 0.2);
+  transition: height 0.3s ease;
 }
 
 .glass_card_figcaption {
-    margin-left: 55px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    color: #fff;
-    width: calc(100% - 55px);
-    max-width: 100%;
+  margin-left: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #fff;
+  width: calc(100% - 55px);
+  max-width: 100%;
 }
 
 .glass_card_title {
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
-    /* width: 100%; */
-    max-width: 30ch;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  /* width: 100%; */
+  max-width: 30ch;
 }
 
 .glass_card_subtitle {
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    width: 100%;
-    max-width: 44ch;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  width: 100%;
+  max-width: 44ch;
 }
 
-.glass_card_subtitle, .glass_card_title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: font-size 0.3s ease;
+.glass_card_subtitle,
+.glass_card_title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
 }
 
 @media (max-width: 768px) {
-    .glass_card_title {
-        font-size: clamp(0.8rem, 3vw, 1.1rem);
-    }
-    
-    .glass_card_subtitle {
-        font-size: clamp(0.6rem, 2.2vw, 0.85rem);
-    }
+  .glass_card_title {
+    font-size: clamp(0.8rem, 3vw, 1.1rem);
+  }
 
-    .glass_card_figcaption {
-        margin-left: 50px;
-        width: calc(100% - 50px);
-    }
+  .glass_card_subtitle {
+    font-size: clamp(0.6rem, 2.2vw, 0.85rem);
+  }
 
-    .glass_card_image {
-        height: 80px;
-    }
+  .glass_card_figcaption {
+    margin-left: 50px;
+    width: calc(100% - 50px);
+  }
+
+  .glass_card_image {
+    height: 80px;
+  }
 }
 
 @media (max-width: 480px) {
-    .glass_card_title {
-        font-size: clamp(0.75rem, 3.5vw, 1rem);
-    }
-    
-    .glass_card_subtitle {
-        font-size: clamp(0.55rem, 2.5vw, 0.8rem);
-    }
+  .glass_card {
+    margin-left: clamp(10px, 20%, 1.1rem);
+  }
 
-    .glass_card_figcaption {
-        margin-left: 45px;
-        width: calc(100% - 45px);
-    }
+  .glass_card_title {
+    font-size: clamp(0.75rem, 3.5vw, 1rem);
+  }
 
-    .glass_card_image {
-        height: 77px;
-    }
+  .glass_card_subtitle {
+    font-size: clamp(0.55rem, 2.5vw, 0.8rem);
+  }
+
+  .glass_card_figcaption {
+    margin-left: 48px;
+    width: calc(100% - 45px);
+  }
+
+  .glass_card_image {
+    height: 77px;
+  }
 }
