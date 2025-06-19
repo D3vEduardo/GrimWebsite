@@ -5,7 +5,7 @@ import { setSpotifyTokens } from "@/libs/firebase/setSpotifyTokens";
 
 export async function GET(
   request: NextRequest,
-  context: { params: { action?: string } }
+  context: { params: Promise<{ action: string }> }
 ) {
   try {
     const { action } = await context.params;
