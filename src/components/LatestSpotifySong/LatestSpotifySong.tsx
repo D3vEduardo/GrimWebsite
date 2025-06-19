@@ -14,7 +14,7 @@ export default async function LatestSpotifySong() {
     const url = `${protocol}://${host}`;
     const musics = await getLatestListenedMusic();
     if (!musics || musics.length === 0) {
-      const res = await fetch("/api/spotify/music");
+      const res = await fetch("https://grim-uk.vercel.app/api/spotify/music");
       if (!res.ok) {
         throw new Error("Failed to fetch Spotify data");
       }
