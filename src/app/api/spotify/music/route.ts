@@ -45,10 +45,12 @@ export async function GET() {
         );
       });
 
-      await setLatestListenedMusic(organizedSongs)
+    // Get the latest song (first item after sorting)
+    const latestSong = organizedSongs[0];
+    await setLatestListenedMusic([latestSong]);
 
     return NextResponse.json(
-      organizedSongs
+      [latestSong]
     );
   } catch (e) {
     console.error("API ROUTE /api/spotify/music (GET):", e);
@@ -89,12 +91,12 @@ export async function POST() {
         { status: 404 }
       );
 
-    await setLatestListenedMusic(
-      data.items.sort(
-        (a, b) =>
-          new Date(b.played_at).getTime() - new Date(a.played_at).getTime()
-      )
+    const sortedSongs = data.items.sort(
+      (a, b) =>
+        new Date(b.played_at).getTime() - new Date(a.played_at).getTime()
     );
+    const latestSong = sortedSongs[0];
+    await setLatestListenedMusic([latestSong]);
 
     return NextResponse.json(
       { message: "Latest listened music updated successfully" },

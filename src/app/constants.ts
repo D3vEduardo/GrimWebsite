@@ -1,5 +1,5 @@
 import { socialIconType } from "@/types/socialMediaIconTypes"
-export const discordUserId = /*"909580127644549201"*/"1203073011054547005"
+export const discordUserId = "909580127644549201"/*"1203073011054547005"*/
 
 // enum socialIcons {
 //     discord = "ic:baseline-discord",

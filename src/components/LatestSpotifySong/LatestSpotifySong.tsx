@@ -14,40 +14,56 @@ export default async function LatestSpotifySong() {
     const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
     const url = `${protocol}://${host}`;
     const musics = await getLatestListenedMusic();
-    if (!musics || musics.length === 0) {
+    
+    let song: RecentlyPlayedItem | null = null;
+    let songImageUrl: string | undefined;
+
+    if (musics && musics.length > 0) {
+      // Usar dados do Firebase quando disponíveis
+      song = musics[0];
+    } else {
+      // Buscar dados da API externa quando não houver dados locais
       const res = await fetch("https://grim-uk.vercel.app/api/spotify/music");
       if (!res.ok) {
         throw new Error("Failed to fetch Spotify data");
       }
       const data = await res.json() as RecentlyPlayedItem[];
-      const song = data[0];
-      const songImageApiRes = await fetch(song.track.album.href, {
-        headers: {
-          'Authorization': `Bearer ${tokens?.accessToken}`
-        }
-      });
-      let songImageUrl: string | undefined;
-      if (songImageApiRes.ok) {
-        const data = await songImageApiRes.json();
-        songImageUrl = data.images[0].url; 
-      }
+      song = data[0];
+    }
 
+    // Extrair URL da imagem diretamente dos dados da música
+    if (song?.track?.album?.images?.length > 0) {
+      songImageUrl = song.track.album.images[0].url;
+    }
+
+    // Retornar card apenas se houver uma música válida
+    if (song) {
+      return (
+        <GlassCard
+          title={song.track.name || "Unknown Track"}
+          subtitle={song.track.artists.map(a => a.name).join(", ") || "Unknown Artist"}
+          spotify={{
+            trackId: song.track.id || ""
+          }}
+          delay={1.8}
+          redirectUrl={`https://open.spotify.com/track/${song.track.id}`}
+          imageUrl={
+            songImageUrl ||
+            "https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
+          }
+        />
+      );
+    }
+
+    // Retornar card padrão quando não houver música
     return (
       <GlassCard
-        title={song.track.name || "Unknown Track"}
-        subtitle={song.track.artists.join(", ") || "Unknown Artist"}
-        spotify={{
-          trackId: song.track.id || ""
-        }}
-        delay={1.8}
-        redirectUrl={`https://open.spotify.com/track/${song.track.id}`}
-        imageUrl={
-          songImageUrl ||
-          "https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
-        }
+        title="Nenhuma música encontrada"
+        subtitle="Tente reproduzir algo no Spotify"
+        imageUrl="https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
       />
     );
-    }
+
   } catch (error) {
     console.error(
       "Erro durante a renderização ou busca de dados no componente LatestSpotifySong:",
@@ -63,8 +79,8 @@ export default async function LatestSpotifySong() {
 
     return (
       <GlassCard
-        title="Error Loading Music"
-        subtitle="Please try again later"
+        title="Erro ao carregar música"
+        subtitle="Tente novamente mais tarde"
         imageUrl="https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
       />
     );
