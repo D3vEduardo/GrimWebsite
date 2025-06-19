@@ -39,12 +39,16 @@ export async function GET() {
       return NextResponse.json(databaseData);
     }
 
-    return NextResponse.json(
-      data.items.sort((a, b) => {
+    const organizedSongs = data.items.sort((a, b) => {
         return (
           new Date(b.played_at).getTime() - new Date(a.played_at).getTime()
         );
-      })
+      });
+
+      await setLatestListenedMusic(organizedSongs)
+
+    return NextResponse.json(
+      organizedSongs
     );
   } catch (e) {
     console.error("API ROUTE /api/spotify/music (GET):", e);
@@ -86,11 +90,10 @@ export async function POST() {
       );
 
     await setLatestListenedMusic(
-      data.items.sort((a, b) => {
-        return (
+      data.items.sort(
+        (a, b) =>
           new Date(b.played_at).getTime() - new Date(a.played_at).getTime()
-        );
-      })
+      )
     );
 
     return NextResponse.json(

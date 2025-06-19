@@ -1,7 +1,8 @@
-import { SpotifyTokenResponse } from "@type/SpotifyApiTypes";
+import { SpotifyTokenResponse, SpotifyUser } from "@type/SpotifyApiTypes";
 import { env } from "@libs/zod/env";
 import { NextRequest, NextResponse } from "next/server";
 import { setSpotifyTokens } from "@/libs/firebase/setSpotifyTokens";
+import { getSpotifyTokens } from "@/libs/firebase/getSpotifyTokens";
 
 export async function GET(
   request: NextRequest,
@@ -44,6 +45,7 @@ async function CallbackAction(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   if (!code) return NextResponse.redirect("/api/spotify/auth", 302);
+
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -76,6 +78,9 @@ async function CallbackAction(request: NextRequest) {
     "Spotify auth success:",
     JSON.stringify(data)
   );
+
+  const spotifyUserData = await getSpotifyUserData(data.access_token);
+  console.log(spotifyUserData.id);
 
   const expiresAt = Date.now() + data.expires_in * 1000;
   await setSpotifyTokens({
@@ -132,4 +137,17 @@ export async function POST(req: NextRequest) {
     expiresAt: expiresAt,
   });
   return NextResponse.json({ success: true }, { status: 200 });
+}
+
+async function getSpotifyUserData(accessToken: string) {
+  const res = await fetch("https://api.spotify.com/v1/me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Erro ao buscar perfil");
+
+  const data = await res.json();
+  return data as SpotifyUser;
 }

@@ -100,3 +100,16 @@ export interface SpotifyContext {
   };
   uri: string;
 }
+
+export interface SpotifyUser {
+  id: string;
+  display_name: string;
+  email?: string;
+  country?: string;
+  product?: "premium" | "free" | "open";
+  images: {
+    url: string;
+    height: number | null;
+    width: number | null;
+  }[];
+}

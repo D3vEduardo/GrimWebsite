@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 
 export default async function LatestSpotifySong() {
   try {
+    const tokens = await getSpotifyTokens();
     const headersList = await headers();
     const host = headersList.get("host");
     const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
@@ -19,19 +20,29 @@ export default async function LatestSpotifySong() {
         throw new Error("Failed to fetch Spotify data");
       }
       const data = await res.json() as RecentlyPlayedItem[];
-
+      const song = data[0];
+      const songImageApiRes = await fetch(song.track.album.href, {
+        headers: {
+          'Authorization': `Bearer ${tokens?.accessToken}`
+        }
+      });
+      let songImageUrl: string | undefined;
+      if (songImageApiRes.ok) {
+        const data = await songImageApiRes.json();
+        songImageUrl = data.images[0].url; 
+      }
 
     return (
       <GlassCard
-        title={data[0].track.name || "Unknown Track"}
-        subtitle={data[0].track.artists.join(", ") || "Unknown Artist"}
+        title={song.track.name || "Unknown Track"}
+        subtitle={song.track.artists.join(", ") || "Unknown Artist"}
         spotify={{
-          trackId: data[0].track.id || ""
+          trackId: song.track.id || ""
         }}
         delay={1.8}
-        redirectUrl={`https://open.spotify.com/track/${data[0].track.id}`}
+        redirectUrl={`https://open.spotify.com/track/${song.track.id}`}
         imageUrl={
-          data[0].track.album.uri ||
+          songImageUrl ||
           "https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
         }
       />
