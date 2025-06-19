@@ -3,13 +3,15 @@
 import { useRealTimeUserData } from "@contexts/RealTimeUserData/hook";
 import GlassCard from "@components/GlassCard/GlassCard";
 
-interface CardsSectionProps {
-  latestSpotifySongComponent: React.ReactNode;
-}
+// interface CardsSectionProps {
+//   latestSpotifySongComponent: React.ReactNode;
+// }
 
-export default function CardsSection({
-  latestSpotifySongComponent,
-}: CardsSectionProps) {
+export default function CardsSection(
+//   {
+//   latestSpotifySongComponent,
+// }: CardsSectionProps
+) {
   const userData = useRealTimeUserData();
   const userActivity = userData?.activities.find(
     (activity) => activity.id === "custom"
@@ -53,9 +55,7 @@ export default function CardsSection({
             trackId: spotifyData.track_id?.toString() || "",
           }}
         />
-      ) : (
-        latestSpotifySongComponent
-      )}
+      ) : null}
     </section>
   );
 }

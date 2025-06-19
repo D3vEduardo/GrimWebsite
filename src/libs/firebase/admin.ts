@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+import { env } from "@libs/zod/env";
 
 let firebaseApp;
 
@@ -6,14 +7,14 @@ if (!admin.apps.length) {
   try {
     firebaseApp = admin.initializeApp({
       credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(
+        projectId: env.FIREBASE_ADMIN_PROJECT_ID,
+        clientEmail: env.FIREBASE_ADMIN_CLIENT_EMAIL,
+        privateKey: env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(
           /\\n/g,
           '\n'
         ),
       }),
-      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      databaseURL: env.FIREBASE_DATABASE_URL,
     });
     console.log('Firebase Admin SDK: Initialization successful.');
   } catch (error) {

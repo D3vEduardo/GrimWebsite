@@ -50,7 +50,7 @@
     ".next/types/**/*.ts",
     "server.ts",
     "server.js"
-  ],
+, ".certs/route.ts"  ],
   "exclude": [
     "node_modules"
   ]
