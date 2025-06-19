@@ -22,7 +22,7 @@ export async function GET(
       "Error in Spotify auth action:",
       error
     );
-    return NextResponse.redirect("/api/spotify/auth", 302);
+    return NextResponse.redirect(new URL("/api/spotify/auth", request.url), 302);
   }
 }
 
@@ -66,9 +66,9 @@ async function CallbackAction(request: NextRequest) {
     console.error(
       "API ROUTE /api/spotify/auth/callback (GET REFRESH TOKEN):",
       "Spotify auth error:",
-      data
+      JSON.stringify(data)
     );
-    return NextResponse.redirect("/api/spotify/auth", 302);
+    return NextResponse.redirect(new URL("/api/spotify/auth", request.url), 302);
   }
 
   console.log(
@@ -84,7 +84,7 @@ async function CallbackAction(request: NextRequest) {
     expiresAt: expiresAt,
   });
 
-  return NextResponse.redirect("/", 302);
+  return NextResponse.redirect(new URL("/", request.url), 302);
 }
 
 export async function POST(req: NextRequest) {
