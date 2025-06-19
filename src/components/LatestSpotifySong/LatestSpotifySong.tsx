@@ -1,55 +1,54 @@
-'use server'
+"use server";
 
-import GlassCard from "@/components/GlassCard/GlassCard";
-import { env } from "@libs/zod/env";
-import { Types } from "use-lanyard";
+import { RecentlyPlayedItem } from "@/types/SpotifyApiTypes";
+import GlassCard from "@components/GlassCard/GlassCard";
+import { getLatestListenedMusic } from "@libs/firebase/getLatestListenedMusic";
+import { getSpotifyTokens } from "@libs/firebase/getSpotifyTokens";
+import { headers } from "next/headers";
 
 export default async function LatestSpotifySong() {
-  
   try {
-
-    const baseUrl = !env.DEV
-      ? 'https://grimwebsite.onrender.com' 
-      : 'http://localhost:3000';
-    
-    const res = await fetch(`${baseUrl}/api/`, {
-
-      cache: 'no-store',
-      next: {
-        revalidate: 0,
+    const headersList = await headers();
+    const host = headersList.get("host");
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const url = `${protocol}://${host}`;
+    const musics = await getLatestListenedMusic();
+    if (!musics || musics.length === 0) {
+      const res = await fetch("/api/spotify/music");
+      if (!res.ok) {
+        throw new Error("Failed to fetch Spotify data");
       }
-    });
-    
-    if (!res.ok) {
-      console.error("Erro ao buscar dados da API no Server Component:", res.status, res.statusText);
+      const data = await res.json() as RecentlyPlayedItem[];
 
-      return (
-        <GlassCard
-          title="Music Unavailable"
-          subtitle="Unable to load current track"
-          imageUrl="https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
-        />
-      );
-    }
 
-    const data: Types.Spotify = await res.json();
     return (
       <GlassCard
-        title={data.song || "Unknown Track"}
-        subtitle={data.artist || "Unknown Artist"}
+        title={data[0].track.name || "Unknown Track"}
+        subtitle={data[0].track.artists.join(", ") || "Unknown Artist"}
         spotify={{
-          trackId: data.track_id?.toString() || ""
+          trackId: data[0].track.id || ""
         }}
         delay={1.8}
-        redirectUrl={`https://open.spotify.com/track/${data.track_id}`}
+        redirectUrl={`https://open.spotify.com/track/${data[0].track.id}`}
         imageUrl={
-          data.album_art_url ||
+          data[0].track.album.uri ||
           "https://th.bing.com/th/id/OIP.VZwJx4OiCq5FifiYLc5TgHaHa?cb=iwc2&rs=1&pid=ImgDetMain"
         }
       />
     );
+    }
   } catch (error) {
-    console.error("Erro durante a renderização ou busca de dados no Server Component:", error);
+    console.error(
+      "Erro durante a renderização ou busca de dados no componente LatestSpotifySong:",
+      error
+    );
+
+    await fetch("/api/spotify/music", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
 
     return (
       <GlassCard

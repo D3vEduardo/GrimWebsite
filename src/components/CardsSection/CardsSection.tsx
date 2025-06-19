@@ -3,14 +3,14 @@
 import { useRealTimeUserData } from "@contexts/RealTimeUserData/hook";
 import GlassCard from "@components/GlassCard/GlassCard";
 
-// interface CardsSectionProps {
-//   latestSpotifySongComponent: React.ReactNode;
-// }
+interface CardsSectionProps {
+  latestSpotifySongComponent: React.ReactNode;
+}
 
 export default function CardsSection(
-//   {
-//   latestSpotifySongComponent,
-// }: CardsSectionProps
+  {
+  latestSpotifySongComponent,
+}: CardsSectionProps
 ) {
   const userData = useRealTimeUserData();
   const userActivity = userData?.activities.find(

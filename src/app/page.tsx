@@ -1,11 +1,12 @@
 import CardsSection from "@/components/CardsSection/CardsSection";
+import LatestSpotifySong from "@/components/LatestSpotifySong/LatestSpotifySong";
 import Header from "@components/Header/Header";
 
 export default function Home() {
   return (
     <main>
       <Header />
-      <CardsSection />
+      <CardsSection latestSpotifySongComponent={<LatestSpotifySong />} />
     </main>
   );
 }
