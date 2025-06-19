@@ -55,7 +55,7 @@ export default function CardsSection(
             trackId: spotifyData.track_id?.toString() || "",
           }}
         />
-      ) : null}
+      ) : latestSpotifySongComponent}
     </section>
   );
 }
