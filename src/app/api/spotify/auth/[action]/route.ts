@@ -126,17 +126,17 @@ export async function POST(req: NextRequest) {
       data
     );
     return NextResponse.json(
-      { error: "Failed to refresh Spotify token" },
+      { message: "Failed to refresh Spotify token" },
       { status: 500 }
     );
   }
 
-  await setSpotifyTokens({
+  const newData = await setSpotifyTokens({
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
     expiresAt: expiresAt,
   });
-  return NextResponse.json({ success: true }, { status: 200 });
+  return NextResponse.json({ message: "Success on refresh acess token!", tokens: newData }, { status: 200 });
 }
 
 async function getSpotifyUserData(accessToken: string) {
