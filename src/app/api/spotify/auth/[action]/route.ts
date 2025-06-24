@@ -2,7 +2,6 @@ import { SpotifyTokenResponse, SpotifyUser } from "@type/SpotifyApiTypes";
 import { env } from "@libs/zod/env";
 import { NextRequest, NextResponse } from "next/server";
 import { setSpotifyTokens } from "@/libs/firebase/setSpotifyTokens";
-import { getSpotifyTokens } from "@/libs/firebase/getSpotifyTokens";
 
 export async function GET(
   request: NextRequest,
@@ -90,53 +89,6 @@ async function CallbackAction(request: NextRequest) {
   });
 
   return NextResponse.redirect(new URL("/", request.url), 302);
-}
-
-export async function POST(req: NextRequest) {
-  const { refresh_token } = await req.json();
-  if (!refresh_token)
-    return NextResponse.json(
-      { error: "Refresh token is required" },
-      { status: 400 }
-    );
-
-  const res = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(
-          `${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`
-        ).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      userId: "6srfgjim8k0abzf43oqefkahq",
-      grant_type: "refresh_token",
-      refresh_token: refresh_token,
-    }),
-  });
-
-  const data = (await res.json()) as SpotifyTokenResponse;
-  const expiresAt = Date.now() + data.expires_in * 1000;
-  if (!res.ok || !data.refresh_token || !data.access_token) {
-    console.error(
-      "API ROUTE /api/spotify/auth (POST REFRESH TOKEN):",
-      "Spotify auth error:",
-      data
-    );
-    return NextResponse.json(
-      { message: "Failed to refresh Spotify token" },
-      { status: 500 }
-    );
-  }
-
-  const newData = await setSpotifyTokens({
-    accessToken: data.access_token,
-    refreshToken: data.refresh_token,
-    expiresAt: expiresAt,
-  });
-  return NextResponse.json({ message: "Success on refresh acess token!", tokens: newData }, { status: 200 });
 }
 
 async function getSpotifyUserData(accessToken: string) {

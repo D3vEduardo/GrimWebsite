@@ -1,14 +1,13 @@
 import { getLatestListenedMusic } from "@/libs/firebase/getLatestListenedMusic";
 import { setLatestListenedMusic } from "@/libs/firebase/setLatestListenedMusic";
+import { refreshAccessToken } from "@/libs/spotify/refreshToken";
 import { getSpotifyTokens } from "@libs/firebase/getSpotifyTokens";
 import {
   RecentlyPlayedResponse,
-  SpotifyAuthPayload,
 } from "@type/SpotifyApiTypes";
-import { NextRequest, NextResponse } from "next/server";
-import { env } from "@libs/zod/env";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     let tokens = await getSpotifyTokens();
     if (!tokens)
@@ -18,22 +17,7 @@ export async function GET(req: NextRequest) {
       );
 
     if (tokens.expiresAt <= Date.now()) {
-      const res = await fetch(new URL("/api/spotify/auth/refresh", req.url), {
-        method: "POST",
-        body: JSON.stringify({
-          refresh_token: tokens.refreshToken,
-        }),
-      });
-
-      if (!res.ok)
-        return NextResponse.json({ message: "Error on refresh access token!" });
-
-      const data: {
-        message: string;
-        tokens: SpotifyAuthPayload;
-      } = await res.json();
-
-      tokens = data.tokens;
+      tokens = await refreshAccessToken(tokens.refreshToken);
     }
 
     const res = await fetch(
